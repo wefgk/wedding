@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на роспись | Алёна и Георгий</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Cormorant+Garamond:wght@300;400&family=Marck+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="names">
+                <h1>Алёна <span class="and">&</span> Георгий</h1>
+                <div class="subtitle">Приглашают вас на нашу роспись</div>
+            </div>
+            <div class="ring-icon">
+                <i class="fas fa-gem"></i>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="date-section">
+                <div class="date-card">
+                    <div class="date-icon">
+                        <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <h2>26 июня 2026 года</h2>
+                    <p class="time">в 12:00 дня</p>
+                </div>
+            </section>
+
+            <section class="location">
+                <h3><i class="fas fa-heart"></i> Роспись</h3>
+                <div class="address">
+                    <p><strong>г. Кропоткин</strong></p>
+                    <p>ул. Красная, 83</p>
+                    <p class="note">ЗАГС Центрального района</p>
+                </div>
+               <div class="map-container">
+    <h3><i class="fas fa-map-marked-alt"></i> Место росписи</h3>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_ключ&lang=ru_RU"></script>
+    <div id="map" style="width:100%; height:300px; border-radius:10px;"></div>
+    <script>
+        ymaps.ready(init);
+        function init(){
+            var myMap = new ymaps.Map("map", {
+                center: [45.4333, 40.5667], // Координаты Кропоткина
+                zoom: 16
+            });
+            var myPlacemark = new ymaps.Placemark([45.4333, 40.5667], {
+                hintContent: 'ЗАГС, ул. Красная 83',
+                balloonContent: 'Здесь будет наша роспись!'
+            });
+            myMap.geoObjects.add(myPlacemark);
+        }
+    </script>
+    <p class="map-note">ЗАГС Центрального района, г. Кропоткин</p>
+</div>
+
+            <section class="dinner">
+                <h3><i class="fas fa-utensils"></i> Праздничный ужин</h3>
+                <div class="dinner-info">
+                    <p class="time">16:00</p>
+                    <p><strong>г. Армавир</strong></p>
+                    <p>Ресторан «Три перца»</p>
+                    <p class="address-detail">ул. Советской Армии, 457</p>
+                </div>
+                <div class="transport-note">
+                    <i class="fas fa-car"></i>
+                
+                </div>
+            </section>
+
+            <section class="photos">
+                <h3><i class="fas fa-camera"></i> Наши моменты</h3>
+                <div class="photo-grid">
+                    <div class="photo-placeholder">
+                        <i class="fas fa-image"></i>
+                        <p>Ваше фото 1</p>
+                    </div>
+                    <div class="photo-placeholder">
+                        <i class="fas fa-image"></i>
+                        <p>Ваше фото 2</p>
+                    </div>
+                    <div class="photo-placeholder">
+                        <i class="fas fa-image"></i>
+                        <p>Ваше фото 3</p>
+                    </div>
+                </div>
+                <p class="photo-instruction">Здесь будут ваши фотографии</p>
+            </section>
+
+            <section class="confirmation">
+                <h3><i class="fas fa-envelope-open-text"></i> Подтвердите, пожалуйста, ваше присутствие</h3>
+                <p class="confirmation-text">Это поможет нам лучше организовать праздник</p>
+                <a href="https://forms.gle/ВАША_ССЫЛКА_ЗДЕСЬ" class="confirm-button" target="_blank">
+                    <i class="fas fa-check-circle"></i> Подтвердить присутствие
+                </a>
+                <p class="deadline">До 15 мая 2026 года</p>
+            </section>
+
+            <section class="contacts">
+                <h3><i class="fas fa-phone-alt"></i> По всем вопросам</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> Алёна: +7 906 435-39-32</p>
+                    <p><i class="fas fa-phone"></i> Георгий: +7 919 187-08-21</p>
+                    <p><i class="fas fa-envelope"></i> example@email.com</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>С любовью, Алёна и Георгий</p>
+            <div class="hearts">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+            <p class="footer-note">Ждём вас в этот особенный день!</p>
+        </footer>
+    </div>
+
+    <div class="decoration left-top"></div>
+    <div class="decoration right-bottom"></div>
+</body>
+</html>
