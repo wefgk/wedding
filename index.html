@@ -40,26 +40,15 @@
                     <p>ул. Красная, 83</p>
                     <p class="note">ЗАГС Центрального района</p>
                 </div>
-               <div class="map-container">
-    <h3><i class="fas fa-map-marked-alt"></i> Место росписи</h3>
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_ключ&lang=ru_RU"></script>
-    <div id="map" style="width:100%; height:300px; border-radius:10px;"></div>
-    <script>
-        ymaps.ready(init);
-        function init(){
-            var myMap = new ymaps.Map("map", {
-                center: [45.4333, 40.5667], // Координаты Кропоткина
-                zoom: 16
-            });
-            var myPlacemark = new ymaps.Placemark([45.4333, 40.5667], {
-                hintContent: 'ЗАГС, ул. Красная 83',
-                balloonContent: 'Здесь будет наша роспись!'
-            });
-            myMap.geoObjects.add(myPlacemark);
-        }
-    </script>
-    <p class="map-note">ЗАГС Центрального района, г. Кропоткин</p>
-</div>
+                <div class="map-container">
+                    <h3><i class="fas fa-map-marked-alt"></i> Место росписи</h3>
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <p>Карта загрузится после получения API-ключа Яндекса</p>
+                        <p class="map-note">ЗАГС Центрального района, г. Кропоткин</p>
+                    </div>
+                </div>
+            </section>
 
             <section class="dinner">
                 <h3><i class="fas fa-utensils"></i> Праздничный ужин</h3>
@@ -70,8 +59,7 @@
                     <p class="address-detail">ул. Советской Армии, 457</p>
                 </div>
                 <div class="transport-note">
-                    <i class="fas fa-car"></i>
-                
+                    <i class="fas fa-car"></i> Трансфер от ЗАГСа до ресторана
                 </div>
             </section>
 
@@ -94,23 +82,58 @@
                 <p class="photo-instruction">Здесь будут ваши фотографии</p>
             </section>
 
+            <!-- ФОРМА ПОДТВЕРЖДЕНИЯ -->
             <section class="confirmation">
                 <h3><i class="fas fa-envelope-open-text"></i> Подтвердите, пожалуйста, ваше присутствие</h3>
                 <p class="confirmation-text">Это поможет нам лучше организовать праздник</p>
-                <a href="https://forms.gle/ВАША_ССЫЛКА_ЗДЕСЬ" class="confirm-button" target="_blank">
-                    <i class="fas fa-check-circle"></i> Подтвердить присутствие
-                </a>
+
+                <form id="rsvp-form" action="https://formspree.io/f/ВАШ_ФОРМ_ID" method="POST">
+                    <div style="margin-bottom: 20px;">
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Ваше имя"
+                            required
+                            style="
+                                width: 100%;
+                                max-width: 300px;
+                                padding: 12px 20px;
+                                font-size: 1.2rem;
+                                border: 2px solid #d4a5c2;
+                                border-radius: 50px;
+                                text-align: center;
+                                background: rgba(255, 255, 255, 0.9);
+                                color: #5a4a4a;
+                                font-family: 'Cormorant Garamond', serif;
+                                outline: none;
+                                transition: border-color 0.3s;
+                            "
+                        >
+                    </div>
+                    <button type="submit" class="confirm-button">
+                        <i class="fas fa-check-circle"></i> Подтвердить присутствие
+                    </button>
+                </form>
+
                 <p class="deadline">До 15 мая 2026 года</p>
             </section>
-
-            <section class="contacts">
-                <h3><i class="fas fa-phone-alt"></i> По всем вопросам</h3>
-                <div class="contact-info">
-                    <p><i class="fas fa-phone"></i> Алёна: +7 906 435-39-32</p>
-                    <p><i class="fas fa-phone"></i> Георгий: +7 919 187-08-21</p>
-                    <p><i class="fas fa-envelope"></i> example@email.com</p>
-                </div>
-            </section>
+        <section class="contacts">
+            <h3><i class="fas fa-phone-alt"></i> По всем вопросам</h3>
+            <div class="contact-info">
+                <p class="copyable" data-value="+7 906 435-39-32">
+                    <i class="fas fa-phone"></i> Алёна: <span>+7 906 435-39-32</span>
+                    <button class="copy-btn" aria-label="Копировать номер">📋</button>
+                </p>
+                <p class="copyable" data-value="+7 919 187-08-21">
+                    <i class="fas fa-phone"></i> Георгий: <span>+7 919 187-08-21</span>
+                    <button class="copy-btn" aria-label="Копировать номер">📋</button>
+                </p>
+                <p class="copyable" data-value="alena.georgiy.wedding@gmail.com">
+                    <i class="fas fa-envelope"></i> Email: <span>alena.georgiy.wedding@gmail.com</span>
+                    <button class="copy-btn" aria-label="Копировать email">📋</button>
+                </p>
+            </div>
+        </section>
         </main>
 
         <footer class="footer">
@@ -126,5 +149,81 @@
 
     <div class="decoration left-top"></div>
     <div class="decoration right-bottom"></div>
+
+    <!-- Плавная отправка без перезагрузки -->
+    <script>
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const button = form.querySelector('.confirm-button');
+            const originalHTML = button.innerHTML;
+
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {'Accept': 'application/json'}
+            })
+            .then(response => {
+                if (response.ok) {
+                    form.innerHTML = `
+                        <p style="
+                            color: #d4a5c2;
+                            font-size: 1.3rem;
+                            font-weight: 500;
+                            margin: 20px 0;
+                        ">Спасибо! Мы рады, что вы с нами 💖</p>
+                        <p class="deadline">До 15 мая 2026 года</p>
+                    `;
+                } else {
+                    alert('Произошла ошибка. Попробуйте ещё раз.');
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                }
+            })
+            .catch(() => {
+                alert('Не удалось отправить. Проверьте интернет.');
+                button.innerHTML = originalHTML;
+                button.disabled = false;
+            });
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.copyable').forEach(item => {
+            const btn = item.querySelector('.copy-btn');
+            const value = item.getAttribute('data-value');
+
+            if (!btn || !value) return;
+
+            btn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(value);
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Ошибка копирования:', err);
+                    // Опционально: fallback для старых браузеров
+                    const textArea = document.createElement('textarea');
+                    textArea.value = value;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        btn.classList.add('copied');
+                        setTimeout(() => btn.classList.remove('copied'), 2000);
+                    } catch (e) {
+                        alert('Не удалось скопировать. Попробуйте выделить и скопировать вручную.');
+                    }
+                    document.body.removeChild(textArea);
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>
